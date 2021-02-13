@@ -1,0 +1,20 @@
+Part 2:
+
+Three NB steps to making models:
+1. Change your models in models.py.
+2. Run $py manage.py makemigrations to *create* migrations for those changes. I.e. stage commits.
+3. Run $py manage.py migrate to *apply* those changes to the db. I.e. push commits.
+See below for details.
+
+$py manage.py migrate	-->looks at the INSTALLED_APPS setting and creates any necessary database tables according to the db setting in 	mysite/settings.py and the db migrations shipped with the app.
+
+$py manage.py makemigrations polls	--> You’re telling Django that you’ve made some changes to your models and that you’d like the changes to be stored as a migration.
+	Migrations are how Django stores changes to your models (and thus your database schema) - they’re files on disk. 
+
+$py manage.py sqlmigrate polls 0001	-->The sqlmigrate command takes migration names and returns their SQL to the screen so that you can see what SQL Django thinks is required.
+
+$py manage.py check	--> checks for any problems in the project without making migrations or touching the db.
+
+$python manage.py createsuperuser	--> Create an admin user.
+
+$python manage.py runserver		--> Start dev server.
