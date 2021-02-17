@@ -9,18 +9,20 @@ from django.utils import timezone
 #A relationship is defined using ForeignKey.
 
 class Question(models.Model) :
-    question_text = models.CharField(max_length=200) 
+    question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('data published')
     def __str__(self):
         return self.question_text
-    
+
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
-    
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+        #return self.pub_date >= timezone.now() - datetime.timedelta(days=1)   --> flawed expression since any time in the future is also considered to be recent.
+
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)    #defined a human-readable name for Question.pub_date.
     ##Each Choice is related to a single Question.
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
     def __str__(self):
-            return self.choice_text    
+            return self.choice_text
