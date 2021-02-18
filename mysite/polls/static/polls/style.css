@@ -1,0 +1,12 @@
+/* The reason for the directory nesting is to use file namspacing which points Django at the right file.
+Otherwise if you have two files with the same name in the initial polls directory django won't be able to distinguish between them
+if they are used for separate projects.
+*/
+
+li a {
+  color: gold;
+}
+
+body {
+  background: white url("images/doge_space.jpg") no-repeat;
+}
