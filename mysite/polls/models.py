@@ -19,6 +19,10 @@ class Question(models.Model) :
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
         #return self.pub_date >= timezone.now() - datetime.timedelta(days=1)   --> flawed expression since any time in the future is also considered to be recent.
 
+    was_published_recently.admin_order_field = 'pub_date'
+    was_published_recently.boolean = True
+    was_published_recently.short_description = 'Published recently?'
+
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)    #defined a human-readable name for Question.pub_date.
     ##Each Choice is related to a single Question.
