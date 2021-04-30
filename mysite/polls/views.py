@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from .models import Choice, Question
 
-# Views must return either an HttpResponse object, containnig the content for the requested page, or raise an exception, such as Http404.
+# Views must return either an HttpResponse object, containing the content for the requested page, or raise an exception, such as Http404.
 
 # To call the view, map it to a URL via the URLconf.
 # def index(request):
@@ -67,6 +67,14 @@ class ResultsView(generic.DetailView):
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request,'polls/results.html', {'question': question})
 
+# class ChartsView(generic.ListView):
+#     template_name = 'polls/charts.html'
+
+def chartsView(request):
+    #  latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    #  context = { 'latest_question_list': latest_question_list } # Context is a dictionary mapping template variable names to Python objects.
+    return render(request, 'polls/charts.html')
+        
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:

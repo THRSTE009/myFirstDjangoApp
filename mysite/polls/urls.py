@@ -14,6 +14,7 @@ urlpatterns = [
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
     path('<int:question_id>/vote/', views.vote, name='vote'),
+    path('charts/', views.chartsView, name='charts'),
 
     # Old method for adding urls.
     #path('', views.index, name='index'), # ex: /polls/

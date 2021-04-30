@@ -1,0 +1,112 @@
+<h1>Charts html page</h1>
+
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+<script>
+    const chart = LightweightCharts.createChart(document.body, { 
+        width: 600,
+        height: 300,
+        localization: {
+            //locale: 'en-UK',
+            //dateFormat: 'dd/mm/yyyy',
+        }, 
+        layout: {
+            backgroundColor: '#FAEBD7',
+            textColor: '#696969',
+            fontSize: 12,
+            fontFamily: 'Calibri',
+        },
+        priceScale: {
+           scaleMargins: {
+                top: 0.2,
+                bottom: 0.2, 
+            },
+        },
+        timeScale: {
+            timeVisible: true,
+            // secondsVisible: false,
+            fixLeftEdge: true,
+            lockVisibleTimeRangeOnResize: true,
+            // tickMarkFormatter: (time) => {
+			// 	const date = new Date(time.year, time.month, time.day);
+			// 	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+			// },
+        },
+        // watermark: {
+		// visible: true,
+		// fontSize: 24,
+		// horzAlign: 'center',
+		// vertAlign: 'center',
+		// color: 'rgba(38, 97, 255, 0.5)',
+		// text: 'Future Forex',
+	    // },
+    });
+
+    //chart.timeScale().scrollToRealTime();
+    chart.timeScale().fitContent();
+    //chart.timeScale().getVisibleRange();
+
+    const lineSeries1 = chart.addLineSeries({
+        // title: 'Valr Demo',                   
+    });
+
+    const lineSeries2 = chart.addLineSeries({
+        // title: 'Luno Demo',
+        color: '#f48fb1',
+    });
+
+    // const lineSeries3 = chart.addLineSeries({
+    //     title: 'Altcoin Demo',
+    //     //color: '#42f54',   
+    //     visible: false,         
+    // });
+
+    // ***** PARSING A DATE *****
+    const dateFromAPI1 = new Date("2019-04-30T13:30:01Z");   // Date in ISO Format. Z = GMT+0.
+    const dateFromAPI2 = new Date("2019-04-30T13:35:31Z");   // Date in ISO Format. Z = GMT+0.
+    const dateFromAPI3 = new Date("2019-04-30T13:40:01Z");   // Date in ISO Format. Z = GMT+0.
+    const dateFromAPI4 = new Date("2019-04-30T13:45:31Z");   // Date in ISO Format. Z = GMT+0.
+    const dateFromAPI5 = new Date("2019-05-01T14:30:01Z");   // Date in ISO Format. Z = GMT+0.
+    const dateFromAPI6 = new Date("2019-05-01T14:35:31Z");   // Date in ISO Format. Z = GMT+0.
+
+    const msSinceEpoch = (new Date()).getTime();    // Outputs the current date as a timestamp.
+        //const currentDate = Date.now(); 
+    //console.log(msSinceEpoch)
+
+    // ***** CONVERT DATE FROM ISO FORMAT INTO UNIX TIMESTAMP FORMAT.
+    var t1 = dateFromAPI1.getTime() / 1000;
+    var t2 = dateFromAPI2.getTime() / 1000;
+    var t3 = dateFromAPI3.getTime() / 1000;
+    var t4 = dateFromAPI4.getTime() / 1000;
+    var t5 = dateFromAPI5.getTime() / 1000;
+    var t6 = dateFromAPI6.getTime() / 1000;
+
+    // Convert yyyy-mm-dd to unix Timestamp
+    // var cur = Math.round(new Date().getTime()/1000);
+
+    // NOTE: You can't use timestamp in combination with 'yyyy-mm-dd' format when setting data.
+    // NOTE: Date needs to be in one of three forms: 
+        // 1. UNIX timestamp: const timestamp = 1529884800; // June 25, 2018
+        // 2. Business day object: const day = { year: 2019, month: 6, day: 1 }; // June 1, 2019
+        // 3. Business day string: const timestamp = '2018-06-25'; // June 25, 2018
+
+    lineSeries1.setData([
+        { time: t1, value: 4.38 },
+        { time: t2, value: 4.27 },
+        { time: t3, value: 4.44 },
+        { time: t4, value: 1.5 },
+        { time: t5, value: 2.1 },
+        { time: t6, value: 3.4 },
+    ]);
+
+    lineSeries2.setData([
+        { time: t1, value: 4.28 },
+        { time: t2, value: 4.17 },
+        { time: t3, value: 4.84 },
+        { time: t4, value: 4.15 },
+        { time: t5, value: 4.2 },
+        { time: t6, value: 3.8 },
+    ]);
+
+    // Create a legend to display the lineseries titles, their margins and the date.
+
+</script>

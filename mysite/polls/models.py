@@ -8,7 +8,7 @@ from django.utils import timezone
 #The name of each field will be used as the column name by the db. E.g question_text in machine-friendly format.
 #A relationship is defined using ForeignKey.
 
-class Question(models.Model) :
+class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('data published')
     def __str__(self):

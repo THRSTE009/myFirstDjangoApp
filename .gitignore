@@ -2,14 +2,18 @@
 
 # dependencies
 /Lib
-
-# testing
+/node_modules
 /Scripts
-pip-selfcheck.json
-pyvenv.cfg
 
-#
+# 
+pip-selfcheck.json
+
+pyvenv.cfg
 /mysite/mysite/settings.py
+
+#References
+LICENSE.txt
+mysite/NOTICE.txt
 
 # production
 /build
