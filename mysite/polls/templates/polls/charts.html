@@ -1,5 +1,11 @@
-<h1>Charts html page</h1>
+<!DOCTYPE html>
+<html>
 
+<head>
+    <link rel="stylesheet" href="../../static/polls/styles.css">
+</head>
+
+<body>
 <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 <script>
     const chart = LightweightCharts.createChart(document.body, { 
@@ -41,15 +47,13 @@
 	    // },
     });
 
-    //chart.timeScale().scrollToRealTime();
-    chart.timeScale().fitContent();
-    //chart.timeScale().getVisibleRange();
+    chart.timeScale().fitContent(); //  Fits the Chart to the width of the graph.
 
-    const lineSeries1 = chart.addLineSeries({
+    const lineSeriesValr = chart.addLineSeries({
         // title: 'Valr Demo',                   
     });
 
-    const lineSeries2 = chart.addLineSeries({
+    const lineSeriesLuno = chart.addLineSeries({
         // title: 'Luno Demo',
         color: '#f48fb1',
     });
@@ -89,7 +93,7 @@
         // 2. Business day object: const day = { year: 2019, month: 6, day: 1 }; // June 1, 2019
         // 3. Business day string: const timestamp = '2018-06-25'; // June 25, 2018
 
-    lineSeries1.setData([
+    lineSeriesValr.setData([
         { time: t1, value: 4.38 },
         { time: t2, value: 4.27 },
         { time: t3, value: 4.44 },
@@ -98,7 +102,7 @@
         { time: t6, value: 3.4 },
     ]);
 
-    lineSeries2.setData([
+    lineSeriesLuno.setData([
         { time: t1, value: 4.28 },
         { time: t2, value: 4.17 },
         { time: t3, value: 4.84 },
@@ -107,6 +111,36 @@
         { time: t6, value: 3.8 },
     ]);
 
+    document.body.style.position = 'relative';
+
     // Create a legend to display the lineseries titles, their margins and the date.
+    var legend = document.createElement('div');
+    legend.classList.add('legend');
+    document.body.appendChild(legend);
+
+    var firstRowValr = document.createElement('div');
+    const titleValr = 'BTC VALR';
+    // firstRow.innerText = title1;
+    legend.appendChild(firstRowValr);
+
+    var secondRowLuno = document.createElement('div');
+    const titleLuno = 'BTC LUNO';
+    legend.appendChild(secondRowLuno);
+
+    chart.subscribeCrosshairMove((param) => {
+	if (param.time) {
+		const priceValr = param.seriesPrices.get(lineSeriesValr);
+		firstRowValr.innerText = titleValr + '  ' + priceValr.toFixed(2);
+
+        const priceLuno = param.seriesPrices.get(lineSeriesLuno);
+		secondRowLuno.innerText = titleLuno + '  ' + priceLuno.toFixed(2);
+	}
+    else {
+        firstRowValr.innerText = titleValr;
+        secondRowLuno.innerText = titleLuno;
+    }
+});
 
 </script>
+</body>
+</html>
