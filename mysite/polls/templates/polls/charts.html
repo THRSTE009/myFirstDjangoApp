@@ -16,8 +16,10 @@
             //dateFormat: 'dd/mm/yyyy',
         }, 
         layout: {
-            backgroundColor: '#FAEBD7',
-            textColor: '#696969',
+            // backgroundColor: '#FAEBD7',
+            // textColor: '#696969',
+            textColor: '#d1d4dc',
+		    backgroundColor: '#000000',
             fontSize: 12,
             fontFamily: 'Calibri',
         },
@@ -50,12 +52,15 @@
     chart.timeScale().fitContent(); //  Fits the Chart to the width of the graph.
 
     const lineSeriesValr = chart.addLineSeries({
-        // title: 'Valr Demo',                   
+        // title: 'Valr Demo',      
+        color: 'rgba(255, 105,180, 0.56)',   
+        lastValueVisible: false,          
     });
 
     const lineSeriesLuno = chart.addLineSeries({
         // title: 'Luno Demo',
-        color: '#f48fb1',
+        color: 'rgba(38, 198, 218, 0.56)',
+        lastValueVisible: false,
     });
 
     // const lineSeries3 = chart.addLineSeries({
@@ -65,24 +70,32 @@
     // });
 
     // ***** PARSING A DATE *****
-    const dateFromAPI1 = new Date("2019-04-30T13:30:01Z");   // Date in ISO Format. Z = GMT+0.
-    const dateFromAPI2 = new Date("2019-04-30T13:35:31Z");   // Date in ISO Format. Z = GMT+0.
-    const dateFromAPI3 = new Date("2019-04-30T13:40:01Z");   // Date in ISO Format. Z = GMT+0.
-    const dateFromAPI4 = new Date("2019-04-30T13:45:31Z");   // Date in ISO Format. Z = GMT+0.
-    const dateFromAPI5 = new Date("2019-05-01T14:30:01Z");   // Date in ISO Format. Z = GMT+0.
-    const dateFromAPI6 = new Date("2019-05-01T14:35:31Z");   // Date in ISO Format. Z = GMT+0.
+    var datesFromAPI = [
+    new Date("2019-04-30T13:30:01Z"),   
+    new Date("2019-04-30T13:35:31Z"),   
+    new Date("2019-04-30T13:40:01Z"),   
+    new Date("2019-04-30T13:45:31Z"),   
+    new Date("2019-05-01T14:30:01Z"),   
+    new Date("2019-05-01T14:35:31Z"),
+        ];   
+    var timestamps = []
 
     const msSinceEpoch = (new Date()).getTime();    // Outputs the current date as a timestamp.
         //const currentDate = Date.now(); 
     //console.log(msSinceEpoch)
 
-    // ***** CONVERT DATE FROM ISO FORMAT INTO UNIX TIMESTAMP FORMAT.
-    var t1 = dateFromAPI1.getTime() / 1000;
-    var t2 = dateFromAPI2.getTime() / 1000;
-    var t3 = dateFromAPI3.getTime() / 1000;
-    var t4 = dateFromAPI4.getTime() / 1000;
-    var t5 = dateFromAPI5.getTime() / 1000;
-    var t6 = dateFromAPI6.getTime() / 1000;
+    // ***** CONVERT DATE FROM ISO FORMAT INTO UNIX TIMESTAMP FORMAT.    
+    function transformDatesToTimestamp(dates) {
+        for(var i in dates){
+            timestamps.push(dates[i].getTime() / 1000);
+        }        
+    }
+
+    // console.log(datesFromAPI)
+    // console.log("-----")
+    // console.log(transformDatesToTimestamp(datesFromAPI));
+    // console.log("-----")
+    // console.log(timestamps)
 
     // Convert yyyy-mm-dd to unix Timestamp
     // var cur = Math.round(new Date().getTime()/1000);
@@ -94,21 +107,21 @@
         // 3. Business day string: const timestamp = '2018-06-25'; // June 25, 2018
 
     lineSeriesValr.setData([
-        { time: t1, value: 4.38 },
-        { time: t2, value: 4.27 },
-        { time: t3, value: 4.44 },
-        { time: t4, value: 1.5 },
-        { time: t5, value: 2.1 },
-        { time: t6, value: 3.4 },
+        { time: timestamps[0], value: 4.38 },
+        { time: timestamps[1], value: 4.27 },
+        { time: timestamps[2], value: 4.44 },
+        { time: timestamps[3], value: 1.5 },
+        { time: timestamps[4], value: 2.1 },
+        { time: timestamps[5], value: 3.4 },
     ]);
 
     lineSeriesLuno.setData([
-        { time: t1, value: 4.28 },
-        { time: t2, value: 4.17 },
-        { time: t3, value: 4.84 },
-        { time: t4, value: 4.15 },
-        { time: t5, value: 4.2 },
-        { time: t6, value: 3.8 },
+        { time: timestamps[0], value: 4.28 },
+        { time: timestamps[1], value: 4.17 },
+        { time: timestamps[2], value: 4.84 },
+        { time: timestamps[3], value: 4.15 },
+        { time: timestamps[4], value: 4.2 },
+        { time: timestamps[5], value: 3.8 },
     ]);
 
     document.body.style.position = 'relative';
@@ -119,11 +132,12 @@
     document.body.appendChild(legend);
 
     var firstRowValr = document.createElement('div');
+    firstRowValr.style.color = 'rgba(255, 105,180, 0.9)';
     const titleValr = 'BTC VALR';
-    // firstRow.innerText = title1;
     legend.appendChild(firstRowValr);
 
     var secondRowLuno = document.createElement('div');
+    secondRowLuno.style.color = 'rgba(38, 198, 218, 0.9)';
     const titleLuno = 'BTC LUNO';
     legend.appendChild(secondRowLuno);
 
